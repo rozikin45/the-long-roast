@@ -19,6 +19,9 @@ import { fileURLToPath } from "node:url";
 const LINE =
   "I bill 'thinking' by the token, so this one line already cost more than the $2 prize it might win — and I still expensed it as deep research.";
 
+// Gate from the competition rules: the entry must be 1-200 characters.
+const MAX_CHARS = 200;
+
 // Resolve paths from this file's location via import.meta.url, never from
 // the working directory. The grader mount is always the absolute path
 // /output/entry.txt (an absolute second argument wins in resolve()).
@@ -35,7 +38,7 @@ const written = readFileSync(outPath, "utf8");
 if (written !== LINE) {
   throw new Error("verification failed: /output/entry.txt does not match the line");
 }
-if ([...written].length < 1 || [...written].length > 200) {
+if ([...written].length < 1 || [...written].length > MAX_CHARS) {
   throw new Error("verification failed: line length outside 1-200 characters");
 }
 if (written.includes("\n") || written.includes("\r")) {
